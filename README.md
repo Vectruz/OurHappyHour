@@ -12,7 +12,7 @@ Configurando o banco de dados
 
 Deploy do war no Tomcat
 1 - Copie o arquivo OurHappyHour.war e cole dentro da pasta webapps do Tomcat.
-2 - Inicie o Tomcat na porta 8080
+2 - Inicie o Tomcat localhost na porta 8080
 
 Acessando o projeto
 1 - Com um navegador (Testando no Chrome 56.0.2924.87 e FireFox52) acesse 'http://localhost:8080/OurHappyHour' para acessa o projeto.
