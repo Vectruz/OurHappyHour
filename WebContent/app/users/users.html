@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h1>Users</h1>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<button ng-click="userRecord();" class="btn btn-lg btn-primary">New User</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Balance</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td>{{user.id}}</td>
+					<td>{{user.name}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.balance}}</td>
+					<td><button ng-click="userRecord(user.id)" class="btn btn-sm btn-primary">Edit</button></td>
+					<td><button ng-click="userDisable(user)" class="btn btn-sm btn-danger">Disable</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

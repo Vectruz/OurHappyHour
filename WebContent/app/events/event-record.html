@@ -1,0 +1,141 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+			<h1>Event</h1>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="form-group">
+			<label>Name</label>
+			<input type="text" ng-model="event.name" class="form-control"/>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="form-group">
+			<label>Description</label>
+			<input type="text" ng-model="event.description" class="form-control"/>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="form-group">
+			<label>Location</label>
+			<input type="text" ng-model="event.location" class="form-control"/>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+		<div class="form-group">
+			<label>Time</label>
+			<input type="datetime-local" ng-model="event.time" class="form-control" placeholder="yyyy-MM-ddTHH:mm:ss"/>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="form-group">
+			<label>Total Value</label>
+			<input type="number" ng-model="event.totalValue" ng-change="refreshValuePerUserEvent();" class="form-control"/>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<div class="form-group">
+			<label>External Payment</label>
+			<input type="checkbox" ng-model="event.externalPayment" ng-change="refreshValuePerUserEvent();" class="form-control"/>
+		</div>
+	</div>
+</div>
+<div class="row" ng-show="event.id">
+	<div class="col-lg-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">Invited Users <button class="btn btn-xs btn-default" ng-click="refoundUsersEvent();">Refound</button></div>
+			<div class="panel-body" style="max-height: 300px; overflow-y:scroll;">
+				<div class="row">
+					<div class="col-lg-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th class="col-lg-1">ID</th>
+									<th>Name</th>
+									<th class="col-lg-1">Confirmed</th>
+									<th class="col-lg-1" ng-hide="event.externalPayment">Balance</th>
+									<th class="col-lg-3" ng-hide="event.externalPayment">Custom Payment</th>
+									<th class="col-lg-2" ng-hide="event.externalPayment">Paid/Pay</th>
+									<th class="col-lg-1">Remove</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="userEvent in event.eventUsers">
+									<td>{{userEvent.user.id}}</td>
+									<td>{{userEvent.user.name}}</td>
+									<td>
+										<div class="row">
+											<div class="col-lg-12 text-center">
+												<input type="checkbox" ng-model="userEvent.confirmed"/>
+											</div>
+										</div>
+									</td>
+									<td ng-hide="event.externalPayment">{{userEvent.user.balance}}</td>
+									<td ng-hide="event.externalPayment">
+										<div class="row">
+											<div class="col-lg-3">
+												<input type="checkbox" ng-model="userEvent.customPayment" ng-change="refreshValuePerUserEvent();"/>
+											</div>
+											<div class="col-lg-9" ng-show="userEvent.customPayment">
+												<input type="number" ng-model="userEvent.customPaymentValue" ng-change="refreshValuePerUserEvent();" style="width: 90px"/></td>
+											</div>
+										</div>
+									<td ng-hide="userEvent.customPayment || event.externalPayment">
+										<button type="button" ng-show="userEvent.user.balance >= event.valuePerUserEvent - userEvent.paid" ng-click="payEvent(userEvent);" class="btn btn-xs btn-success">Pay</button>
+										{{userEvent.paid}} / {{event.valuePerUserEvent}}
+										</td>
+									<td ng-hide="!userEvent.customPayment || event.externalPayment">
+										<button type="button" ng-show="userEvent.user.balance >= userEvent.customPaymentValue - userEvent.paid" ng-click="payEvent(userEvent);" class="btn btn-xs btn-success">Pay</button>
+										{{userEvent.paid}} / {{userEvent.customPaymentValue}}
+									</td>
+									<td class="text-center"><button type="button" ng-click="unInviteToEvent(userEvent);" class="btn btn-xs btn-danger">x</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">Users</div>
+			<div class="panel-body" style="max-height: 300px; overflow-y:scroll;">
+				<div class="row">
+					<div class="col-lg-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Add</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="user in users">
+									<td>{{user.id}}</td>
+									<td>{{user.name}}</td>
+									<td class="text-center"><button type="button" ng-click="inviteToEvent(user);" class="btn btn-xs btn-success">+</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<button ng-click="save();" class="btn btn-lg btn-success">Save</button>
+	</div>
+</div>

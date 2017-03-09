@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="ourHappyHour">
+	<head>
+		<meta charset="UTF-8">
+		<title>OurHappyHour</title>
+		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+		<script src="bower_components/jquery/dist/jquery.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-route/angular-route.js"></script>
+		<script src="bower_components/angular-resource/angular-resource.js"></script>
+		<script src="bower_components/angular-animate/angular-animate.js"></script>
+		<link href="bower_components/angular-toastr/dist/angular-toastr.min.css" rel="stylesheet">
+		<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+		<link href="app/css/main.css" rel="stylesheet">
+		<script src="app/app.js"></script>
+		<script src="app/main-controller.js"></script>
+		<script src="app/home/home-controller.js"></script>
+		<script src="app/users/users-controller.js"></script>
+		<script src="app/users/users-service.js"></script>
+		<script src="app/users/user-record-controller.js"></script>
+		<script src="app/events/events-controller.js"></script>
+		<script src="app/events/events-service.js"></script>
+		<script src="app/events/event-record-controller.js"></script>
+	</head>
+	<body ng-controller="MainCtrl">
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse"></button>
+					<a class="navbar-brand" href="#">OurHappYhour</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a ng-click="goToUsers();" class="pointer">Users</a></li>
+						<li><a ng-click="goToEvents();" class="pointer">Events</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="container">
+			<div ng-view></div>
+		</div>
+	</body>
+</html>
